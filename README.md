@@ -1,5 +1,6 @@
 # TLMonthYearPicker
-Simple month and year picker for android
+Simple month and year picker for android.
+
 ![TLMonthYearPicker](https://github.com/minhnn2607/TLMonthYearPicker/blob/master/20190115_163411.gif)
 
 ## Setup
