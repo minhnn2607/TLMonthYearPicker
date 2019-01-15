@@ -95,38 +95,22 @@ public class LoopView extends View {
 
     private int paddingLeft, paddingRight;
 
-    /**
-     * set text line space, must more than 1
-     * @param lineSpacingMultiplier
-     */
     public void setLineSpacingMultiplier(float lineSpacingMultiplier) {
         if (lineSpacingMultiplier > 1.0f) {
             this.lineSpacingMultiplier = lineSpacingMultiplier;
         }
     }
 
-    /**
-     * set outer text color
-     * @param centerTextColor
-     */
     public void setCenterTextColor(int centerTextColor) {
         this.centerTextColor = centerTextColor;
         paintCenterText.setColor(centerTextColor);
     }
 
-    /**
-     * set center text color
-     * @param outerTextColor
-     */
     public void setOuterTextColor(int outerTextColor) {
         this.outerTextColor = outerTextColor;
         paintOuterText.setColor(outerTextColor);
     }
 
-    /**
-     * set divider color
-     * @param dividerColor
-     */
     public void setDividerColor(int dividerColor) {
         this.dividerColor = dividerColor;
         paintIndicator.setColor(dividerColor);
@@ -176,11 +160,6 @@ public class LoopView extends View {
         initPaints();
     }
 
-    /**
-     * visible item count, must be odd number
-     *
-     * @param visibleNumber
-     */
     public void setItemsVisibleCount(int visibleNumber) {
         if (visibleNumber % 2 == 0) {
             return;
@@ -288,10 +267,6 @@ public class LoopView extends View {
         isLoop = false;
     }
 
-    /**
-     * set text size in dp
-     * @param size
-     */
     public final void setTextSize(float size) {
         if (size > 0.0F) {
             textSize = (int) (context.getResources().getDisplayMetrics().density * size);
@@ -345,19 +320,10 @@ public class LoopView extends View {
         }
     }
 
-    /**
-     * link https://github.com/weidongjian/androidWheelView/issues/10
-     *
-     * @param scaleX
-     */
     public void setScaleX(float scaleX) {
         this.scaleX = scaleX;
     }
 
-    /**
-     * set current item position
-     * @param position
-     */
     public void setCurrentPosition(int position) {
         if (items == null || items.isEmpty()) {
             return;

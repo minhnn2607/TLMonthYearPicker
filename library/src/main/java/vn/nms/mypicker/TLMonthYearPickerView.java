@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,17 +39,17 @@ public class TLMonthYearPickerView extends FrameLayout {
         MONTH_AND_YEAR,
     }
 
-    public TLMonthYearPickerView(@NonNull Context context) {
+    public TLMonthYearPickerView(Context context) {
         super(context);
         init(context, null);
     }
 
-    public TLMonthYearPickerView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public TLMonthYearPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public TLMonthYearPickerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public TLMonthYearPickerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
