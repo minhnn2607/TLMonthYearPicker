@@ -1,0 +1,129 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: "com.jfrog.bintray"
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+
+Properties secret = new Properties()
+secret.load(project.rootProject.file('local.properties').newDataInputStream())
+
+Properties properties = new Properties()
+properties.load(new FileInputStream(file('library.properties')))
+
+project.archivesBaseName = properties.getProperty('name')
+group = properties.getProperty('group')
+
+version =  properties.getProperty('version')
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name  properties.getProperty('name')
+                description  properties.getProperty('description')
+                url  properties.getProperty('siteUrl')
+                artifactId  properties.getProperty('name')
+                version  properties.getProperty('version')
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id properties.getProperty('devId')
+                        name properties.getProperty('devName')
+                        email properties.getProperty('devEmail')
+                    }
+                }
+                scm {
+                    connection properties.getProperty('gitUrl')
+                    developerConnection properties.getProperty('gitUrl')
+                    url properties.getProperty('siteUrl')
+                }
+            }
+        }
+    }
+}
+
+
+bintray {
+    user = secret.getProperty("bintray.user")
+    key = secret.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo =  properties.getProperty('repo')
+        name = properties.getProperty('name')
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
+        publicDownloadNumbers = true
+        version {
+            name = properties.getProperty('version')
+            desc = properties.getProperty('name') + " v" + '1.0'
+            vcsTag = properties.getProperty('version')
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:27.+'
+}
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath()
+            .join(File.pathSeparator))
+}
+
+task generateJavadocsJar(type: Jar) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+generateJavadocsJar.dependsOn generateJavadocs
+
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
+}
