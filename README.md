@@ -8,9 +8,7 @@ Add dependency to your __build.gradle__
 
 ```groovy		
 repositories {
-   maven {
-       url  "https://dl.bintray.com/minhnn2607/maven"
-   }
+    jcenter()
 }
 ```	
 ```groovy		
